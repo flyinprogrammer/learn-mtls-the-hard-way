@@ -1,7 +1,7 @@
 ---
-id: doc1
-title: Style Guide
-sidebar_label: Style Guide
+id: certificates
+title: X.509 v3 Certificates
+sidebar_label: X.509 v3 Certificates
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).

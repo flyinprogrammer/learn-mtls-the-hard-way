@@ -14,8 +14,8 @@ module.exports = {
         src: 'img/noun_Happy_43931.svg',
       },
       links: [
-        {to: 'docs/doc1', label: 'Docs', position: 'left'},
         {to: 'https://flyinprogrammer.com', label: 'Blog', position: 'left'},
+        {to: 'docs/certificates', label: 'Workshop', position: 'left'},
         {
           href: 'https://github.com/flyinprogrammer/learn-mtls-the-hard-way',
           label: 'GitHub',
@@ -27,24 +27,11 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/doc1',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2',
-            },
-          ],
-        },
-        {
           title: 'Community',
           items: [
             {
               label: 'Github Issues',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              href: 'https://github.com/flyinprogrammer/learn-mtls-the-hard-way/issues',
             },
             {
               label: 'Discord',

@@ -7,9 +7,9 @@
 
 module.exports = {
   someSidebar: {
-    "First Principles": ['doc1', 'doc2', 'doc3'],
+    "First Principles": ['certificates'],
     "Hands-on Practice": ['mkcert'],
-    "Learn the Code": [],
+    "Learn the Code": ['nomad_code_example'],
   },
 };
 
