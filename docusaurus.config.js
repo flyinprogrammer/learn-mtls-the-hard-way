@@ -1,8 +1,8 @@
 module.exports = {
   title: 'Learn mTLS the Hard Way',
   tagline: 'Certificates should be fun!',
-  url: 'https://flyinprogrammer.com',
-  baseUrl: '/learn-mtls-the-hard-way/',
+  url: 'https://learn-mtls-the-hard-way.flyinprogrammer.com',
+  baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'flyinprogrammer', // Usually your GitHub org/user name.
   projectName: 'learn-mtls-the-hard-way', // Usually your repo name.
