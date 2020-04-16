@@ -6,6 +6,7 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'flyinprogrammer', // Usually your GitHub org/user name.
   projectName: 'learn-mtls-the-hard-way', // Usually your repo name.
+  themes: ['@docusaurus/theme-classic'],
   themeConfig: {
     navbar: {
       title: 'Learn mTLS the Hard Way',

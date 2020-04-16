@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
+import Head from '@docusaurus/Head';
 
 const features = [
   {
@@ -54,7 +55,13 @@ function Home() {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Magic Magic">
+        <Head>
+            <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"/>
+            <link rel="manifest" href="/site.webmanifest"/>
+        </Head>
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
