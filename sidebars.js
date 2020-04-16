@@ -6,10 +6,10 @@
  */
 
 module.exports = {
-  someSidebar: {
-    "First Principles": ['certificates'],
-    "Hands-on Practice": ['mkcert'],
-    "Learn the Code": ['nomad_code_example'],
-  },
+    someSidebar: {
+        "First Principles": ['certificates'],
+        "Hands-on Practice": ['handson_mkcert', 'handson_consul', 'handson_zookeeper'],
+        "Learn the Code": ['ltc_consul', 'ltc_nomad', 'ltc_zookeeper'],
+    },
 };
 

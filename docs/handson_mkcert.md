@@ -1,5 +1,5 @@
 ---
-id: mkcert
+id: handson_mkcert
 title: Let's Play With mkcert
 sidebar_label: mkcert
 ---
