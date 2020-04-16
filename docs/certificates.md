@@ -13,9 +13,9 @@ The first thing you need to know about certificates, is that there's no such thi
 There's only 1 thing, an X.509 v3 Certificate, and it's specification is discussed in
 [RFC 5280](https://tools.ietf.org/html/rfc5280).
 
-## Certificate Basic Fields
+## Basic Fields
 
-Here are a few basic fields that will allow you to understand what makes an X.509 v3 Certificate.
+Here are a few basic fields that will allow you to understand what makes an X.509 v3 Certificate:
 
 ### [Version Number](https://tools.ietf.org/html/rfc5280#section-4.1.2.1)
 
@@ -114,3 +114,55 @@ If present, this field is a SEQUENCE of one or more certificate
 extensions.  The format and content of certificate extensions in the
 Internet PKI are defined in
 [Section 4.2](https://tools.ietf.org/html/rfc5280#section-4.2).
+
+## Where did this originate?
+
+This specification actually has its roots in an older publication: [Blue Book Volume VIII - Fascicle VIII.8](http://search.itu.int/history/HistoryDigitalCollectionDocLibrary/4.260.43.en.1056.pdf)
+
+Originally it seems certificates were created to solve "directory" type problems, with the intention that if we had
+a directory of objects (humans, computers, printers, etc.) we could use digital certificates to establish a hierarchy of
+those objects, and use the certificates to establish authenticity between objects.
+
+## What is a Root Certificate Authority (CA)?
+
+It's simply an entity that issues digital certificates.
+
+## What is an Intermediate CA?
+
+It's child certificate of the root certificate, which can be used to issue additional Intermediate CA certificates or
+End-entity certificates.
+
+## What is an End-entity certificate?
+
+The End-entity is the last certificate issued to an actual Object. In most case this certificate represents a Server or
+a Client, but remember, it can truly be almost anything.
+
+## Why do we need Intermediate CAs?
+
+By using Intermediate CAs we're able to keep the total number of Root Certificates that we trust to a relatively low
+number. In the event that an Intermediate certificate expires, or is compromised, it's much easier to replace the
+Intermediate certificate with a new one, then update the list of trusted CAs.
+
+## What's a Certificate Chain of Trust?
+
+In order to for your client to trust the authenticity of the final end-entity certificate your server uses, we must be able
+to establish links from the end-entity certificate all the way back to the Root certificate:
+
+![certificate chain of trust](/img/1920px-Chain_of_trust.svg.png)
+
+Those links are what make up the "Chain of Trust", and enable us to have a very flexible certificate hierarchy which can
+sometimes prove useful.
+
+## A Practical Example with Amazon RDS Certificates
+
+Let us use the [Amazon RDS certificates](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) as an example.
+
+Amazon RDS has 1 Root certificate, and 1 Intermediate certificate per region. It's recommended that by default you deploy
+and trust the 1 Root certificate. However, when Amazon issues your database instance an End-entity certificate, it will be
+issued from the regional Intermediate certificate, which was created by the Root certificate.
+
+By using an Intermediate certificate per region Amazon can more easily manage expiration, revocation, and compromise
+because the event(s) will now only happen at the regional level. This means if the us-east-1 RDS certificate needs to be
+replaced, only us-east-1 RDS instances will be affected. Additionally, because we deployed and trust the Root certificate,
+the new, and all future, certificates created by new Intermediate certificates will typically continue to be trusted.
+ 

@@ -4,10 +4,11 @@ title: Nomad Code Snippets
 sidebar_label: Nomad Code Snippets
 ---
 
-To fulfill desired security properties, Nomad certificates are signed with their region and role such as:
+To fulfill desired security properties, Nomad certificates can be signed with their region and role in their certificate
+`Common Name` such as:
 
-* client.global.nomad for a client node in the global region
-* server.us-west.nomad for a server node in the us-west region
+* `client.global.nomad` for a `client` node in the `global` region
+* `server.us-west.nomad` for a `server` node in the `us-west` region
 
 Let's take a look at how these certificates are validated in the code.
 

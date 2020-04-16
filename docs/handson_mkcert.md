@@ -181,6 +181,8 @@ and cannot be longer than 20 octets.
 ```text
 Signature Algorithm: sha256WithRSAEncryption
 ```
+This tells us that SHA-256 is going to be used as the hashing algorithm, and RSA will be used as the algorithm for
+encrypting data.
 
 ### Issuer
 
