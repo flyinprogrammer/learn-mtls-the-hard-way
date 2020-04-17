@@ -25,3 +25,5 @@ examples/consul-cert/data_dir
 # Don't store certs in github even though it likely doesn't matter.
 *.pem
 *.pfx
+
+.idea
