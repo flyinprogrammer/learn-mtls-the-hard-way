@@ -12,3 +12,4 @@ ports {
   http = -1
   https = 8501
 }
+bind_addr = "127.0.0.1"

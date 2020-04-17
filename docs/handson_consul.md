@@ -6,11 +6,37 @@ sidebar_label: Consul
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Run Consul Locally
+## Download Consul Locally
 
-## Create Server Certificate
+[Consul Download Page](https://www.consul.io/downloads.html)
 
-```text
+:::info
+this script requires `unzip` to be installed. and `sha256sum` isn't necesarily the same across distributions.
+This script has only been tested on Ubuntu.
+:::
+
+```bash
+CONSUL_VERSION=${1:-1.2.3}
+curl -LOks https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+curl -LOks https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS
+sed -n "/consul_${CONSUL_VERSION}_linux_amd64.zip/p" consul_${CONSUL_VERSION}_SHA256SUMS | sha256sum -c
+sudo mkdir -p /usr/local/bin/consul_${CONSUL_VERSION}/
+sudo unzip consul_${CONSUL_VERSION}_linux_amd64.zip -d /usr/local/bin/consul_${CONSUL_VERSION}
+rm consul_${CONSUL_VERSION}_linux_amd64.zip
+rm consul_${CONSUL_VERSION}_SHA256SUMS
+sudo ln -s /usr/local/bin/consul_${CONSUL_VERSION}/consul /usr/local/bin/consul
+
+consul -autocomplete-install
+complete -C /usr/local/bin/consul consul 
+```
+
+They have an [official deployment guide](https://learn.hashicorp.com/consul/datacenter-deploy/deployment-guide) that's pretty good too.
+
+## Create Certificates
+
+Consul CLI now a [tls](https://www.consul.io/docs/commands/tls.html) for quickly building certificates.
+
+```bash
 
 ```
 
