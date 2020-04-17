@@ -193,6 +193,9 @@ Issuer:
     CN=mkcert ascherger@MacBook-Pro.localdomain (Alan Scherger)
 ```
 
+Here we see that `Issuer` has some attributes set, of course none of them make a lot of sense. Because, your name/laptop
+isn't exactly an Organizational Unit, but it's good enough.
+
 ### Validity
 
 The [Validity](https://tools.ietf.org/html/rfc5280#section-4.1.2.5) of the certificate is the first line of defense
@@ -215,6 +218,8 @@ Subject:
     OU=ascherger@MacBook-Pro.localdomain (Alan Scherger),
     CN=mkcert ascherger@MacBook-Pro.localdomain (Alan Scherger)
 ```
+
+Again, none of this makes sense, but none of it matters.
 
 ### Subject Public Key Info
 
@@ -276,4 +281,167 @@ X509v3 extensions:
         3C:30:C0:57:4F:54:F7:B9:26:6A:77:60:7E:C4:1C:00:0E:F4:C2:FC
 ```
 
-## Parts of a Leaf Certificate
+Finally some juicy bits. We'll see that this certificate is configured to be a Certificate Authority.
+The `pathlen` of 0 means this certificate cannot be used to create additional Certificate Authorities. 
+
+Take note of the `Subject Key Identifier`: `3C:30:C0` because we'll see this be referenced in our
+End-entity certificate in a few minutes.
+
+## Parts of a End-entity Certificate
+
+Let's now create an End-entity Certificate that we'll use in an Nginx server.
+
+`mkcert` will create certificates in your current working directory. If you'd like you can
+`mv` into the [examples/mkcert-nginx]()
+directory so that you can take advantage of the existing Nginx configuration file.
+
+```bash
+mkcert localhost 127.0.0.1 ::1
+# Using the local CA at "/Users/ascherger/Library/Application Support/mkcert" ✨
+# 
+# Created a new certificate valid for the following names 📜
+#  - "localhost"
+#  - "127.0.0.1"
+#  - "::1"
+#
+# The certificate is at "./localhost+2.pem" and the key at "./localhost+2-key.pem" ✅
+```
+
+Let's take a look at the certificate:
+
+```bash
+openssl x509 -text -noout -in ./localhost+2.pem 
+```
+
+Should produce something like this:
+
+```text
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            78:31:d7:94:6c:d9:e7:d5:52:c2:d9:f5:be:11:6f:61
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: O=mkcert development CA, OU=ascherger@MacBook-Pro.localdomain (Alan Scherger), CN=mkcert ascherger@MacBook-Pro.localdomain (Alan Scherger)
+        Validity
+            Not Before: Jun  1 00:00:00 2019 GMT
+            Not After : Apr 17 02:11:24 2030 GMT
+        Subject: O=mkcert development certificate, OU=ascherger@MacBook-Pro.localdomain (Alan Scherger)
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    <ommited for brevity>
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Authority Key Identifier: 
+                keyid:3C:30:C0:57:4F:54:F7:B9:26:6A:77:60:7E:C4:1C:00:0E:F4:C2:FC
+
+            X509v3 Subject Alternative Name: 
+                DNS:localhost, IP Address:127.0.0.1, IP Address:0:0:0:0:0:0:0:1
+    Signature Algorithm: sha256WithRSAEncryption
+         <ommited for brevity>
+```
+
+### Serial Number
+
+```text
+Serial Number:
+    78:31:d7:94:6c:d9:e7:d5:52:c2:d9:f5:be:11:6f:61
+```
+
+Make note of this, we'll see it soon from our browser.
+
+### Issuer
+
+```text
+Issuer: 
+    O=mkcert development CA,
+    OU=ascherger@MacBook-Pro.localdomain (Alan Scherger),
+    CN=mkcert ascherger@MacBook-Pro.localdomain (Alan Scherger)
+```
+
+Matches the `Issuer` of the Root certificate.
+
+### Validity
+
+```text
+Validity
+    Not Before: Jun  1 00:00:00 2019 GMT
+    Not After : Apr 17 02:11:24 2030 GMT
+```
+
+You'll see that the `Not Before` date is [back dated](https://github.com/FiloSottile/mkcert/issues/174)
+to June 1st because of the [macOS policy update](https://support.apple.com/en-us/HT210176).
+
+### Key Usage
+
+```text
+X509v3 Key Usage: critical
+    Digital Signature, Key Encipherment
+X509v3 Extended Key Usage: 
+    TLS Web Server Authentication
+```
+
+This lets us use the certificate as a webserver.
+
+### Basic Constraints
+
+```text
+X509v3 Basic Constraints: critical
+    CA:FALSE
+```
+
+We can't use this certificate as a Certificate Authority.
+
+### Authority Key Identifier
+
+```text
+X509v3 Authority Key Identifier: 
+    keyid:3C:30:C0:57:4F:54:F7:B9:26:6A:77:60:7E:C4:1C:00:0E:F4:C2:FC
+```
+
+We see that this matches the `Subject Key Identifier` of the Root certificate.
+
+### Subject Alternative Name
+
+```text
+X509v3 Subject Alternative Name: 
+    DNS:localhost, IP Address:127.0.0.1, IP Address:0:0:0:0:0:0:0:1
+```
+
+This tells us what domain names and IP addresses the server can present this certificate as. Meaning
+if the server serves requests with this certificate from anywhere other than:
+
+* `localhost`
+* `127.0.0.1`
+* `::1`
+
+and the client is validating certificate server names, then the client should disconnect from the server.
+
+## Start an Nginx Container
+
+From within the [examples/mkcert-nginx]() folder you can find an existing Nginx configuration file.
+
+From within that directory you can start an Nginx container like this:
+
+```bash
+docker run -p 4448:443 -v "`pwd`:/etc/nginx/conf.d" nginx
+```
+
+And then open a browser to <https://localhost:4448>
+
+You should then be able to inspect the certificate and see something like this:
+
+![chrome certificate](/img/mkcert_nginx.png)
+
+Where you can see that this certificate is trusted because `mkcert` installs the Root CA
+is installed as a trusted certificate in your system.
+
+Similarly you can see that this server certificate is in use when you compare the `Serial Number`.

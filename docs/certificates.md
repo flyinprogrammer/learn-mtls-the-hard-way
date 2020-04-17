@@ -54,7 +54,73 @@ algorithms, but other signature algorithms MAY also be supported.
 The `issuer` field identifies the entity that has signed and issued the
 certificate.  The `issuer` field MUST contain a non-empty distinguished
 name (DN).  The `issuer` field is defined as the X.501 type Name
-[X.501](https://tools.ietf.org/html/rfc5280#ref-X.501).
+[X.501](https://www.itu.int/rec/T-REC-X.501/en).
+
+Standard sets of attributes have been defined in the X.500 series of
+specifications [X.520](https://www.itu.int/itu-t/recommendations/rec.aspx?rec=X.520).
+Implementations of this specification MUST be prepared to receive the following standard attribute types in
+issuer and subject ([Section 4.1.2.6](https://tools.ietf.org/html/rfc5280#section-4.1.2.6)) names:
+
+* country,
+* organization,
+* organizational unit,
+* distinguished name qualifier,
+* state or province name,
+* common name (e.g., "Susan Housley"), and
+* serial number.
+      
+#### Country
+
+The `Country` Name attribute type specifies a country. When used as a component of a directory name, it identifies the
+country in which the named object is physically located or with which it is associated in some other important way.
+An attribute value for country name is a string chosen from ISO 3166-1 alpha-2 or ISO 3166-3 alpha-2. 
+
+#### Organization
+
+The Organization Name attribute type specifies an organization. When used as a component of a directory name, it
+identifies an organization with which the named object is affiliated.
+
+An attribute value for OrganizationName is a string chosen by the organization (e.g., O = "Scottish Telecommunications
+plc"). Any variants should be associated with the named Organization as separate and alternative attribute values.
+
+#### Organizational Unit
+
+The Organizational Unit Name attribute type specifies an organizational unit. When used as a component of a directory
+name, it identifies an organizational unit with which the named object is affiliated.
+
+The designated organizational unit is understood to be part of an organization designated by an organizationName
+attribute. It follows that if an Organizational Unit Name attribute is used in a directory name, it shall be associated with
+an organizationName attribute.
+
+An attribute value for Organizational Unit Name is a string chosen by the organization of which it is part (e.g., OU =
+"Technology Division"). Note that the commonly used abbreviation "TD" would be a separate and alternative attribute
+value.
+
+#### Distinguished Name Qualifier
+
+The DN Qualifier attribute type specifies disambiguating information to add to the relative distinguished name of an
+entry. It is intended to be used for entries held in multiple DSAs which would otherwise have the same name, and that its
+value be the same in a given DSA for all entries to which this information has been added.
+
+#### State or Province
+
+The State or Province Name attribute type specifies a state or province. When used as a component of a directory name,
+it identifies a geographical subdivision in which the named object is physically located or with which it is associated in
+some other important way.
+
+An attribute value for State or Province Name is a string, e.g., S = "Ohio". 
+
+#### Common Name
+
+The Common Name attribute type specifies an identifier of an object. A Common Name is not a directory name; it is a
+(possibly ambiguous) name by which the object is commonly known in some limited scope (such as an organization) and
+conforms to the naming conventions of the country or culture with which it is associated.
+
+An attribute value for common name is a string chosen either by the person or organization it describes or the
+organization responsible for the object it describes for devices and application entities. For example, a typical name of a
+person in an English-speaking country comprises a personal title (e.g., Mr., Ms., Rd, Professor, Sir, Lord), a first name,
+middle name(s), last name, generation qualifier (if any, e.g., Jr.) and decorations and awards (if any, e.g., QC). 
+
 
 ### [Validity](https://tools.ietf.org/html/rfc5280#section-4.1.2.5)
 
@@ -70,7 +136,7 @@ GeneralizedTime.
 
 The `subject` field identifies the entity associated with the public
 key stored in the subject public key field.  The subject name MAY be
-carried in the `subject` field and/or the subjectAltName extension.  If
+carried in the `subject` field and/or the `subjectAltName` extension.  If
 the subject is a CA (e.g., the basic constraints extension, as
 discussed in
 [Section 4.2.1.9](https://tools.ietf.org/html/rfc5280#section-4.2.1.9)
@@ -85,9 +151,9 @@ in [Section 4.2.1.3](https://tools.ietf.org/html/rfc5280#section-4.2.1.3)
 MUST be populated with a non-empty distinguished name matching the contents
 of the `issuer` field ([Section 5.1.2.3](https://tools.ietf.org/html/rfc5280#section-5.1.2.3))
 in all CRLs issued by the subject CRL issuer.  If subject
-naming information is present only in the subjectAltName extension
+naming information is present only in the `subjectAltName` extension
 (e.g., a key bound only to an email address or URI), then the subject
-name MUST be an empty sequence and the subjectAltName extension MUST
+name MUST be an empty sequence and the `subjectAltName` extension MUST
 be critical.
 
 Where it is non-empty, the `subject` field MUST contain an X.500
