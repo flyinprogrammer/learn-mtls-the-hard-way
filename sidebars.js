@@ -8,8 +8,7 @@
 module.exports = {
     someSidebar: {
         "First Principles": ['certificates', 'principles_cryptographic_protocols', 'principles_macos_ios_gotchyas'],
-        "Hands-on Practice": ['handson_mkcert', 'handson_consul', 'handson_zookeeper'],
+        "Hands-on Practice": ['handson_mkcert', 'handson_ssh', 'handson_consul', 'handson_zookeeper'],
         "Learn the Code": ['ltc_consul', 'ltc_nomad', 'ltc_zookeeper'],
     },
 };
-
