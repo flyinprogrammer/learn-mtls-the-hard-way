@@ -292,7 +292,7 @@ End-entity certificate in a few minutes.
 Let's now create an End-entity Certificate that we'll use in an Nginx server.
 
 `mkcert` will create certificates in your current working directory. If you'd like you can
-`mv` into the [examples/mkcert-nginx]()
+`mv` into the [examples/mkcert-nginx](https://github.com/flyinprogrammer/learn-mtls-the-hard-way/tree/master/examples/mkcert-nginx)
 directory so that you can take advantage of the existing Nginx configuration file.
 
 ```bash
@@ -427,7 +427,7 @@ and the client is validating certificate server names, then the client should di
 
 ## Start an Nginx Container
 
-From within the [examples/mkcert-nginx]() folder you can find an existing Nginx configuration file.
+From within the [examples/mkcert-nginx](https://github.com/flyinprogrammer/learn-mtls-the-hard-way/tree/master/examples/mkcert-nginx) folder you can find an existing Nginx configuration file.
 
 From within that directory you can start an Nginx container like this:
 
