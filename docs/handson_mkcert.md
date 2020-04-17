@@ -444,4 +444,4 @@ You should then be able to inspect the certificate and see something like this:
 Where you can see that this certificate is trusted because `mkcert` installs the Root CA
 is installed as a trusted certificate in your system.
 
-Similarly you can see that this server certificate is in use when you compare the `Serial Number`.
+Similarly, you can see that this server certificate is in use when you compare the `Serial Number`.
