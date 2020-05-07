@@ -17,7 +17,7 @@ variable "instance_count" {
 }
 
 variable "domain" {
-  type = string
-  default = "zkocean.hpy.dev"
+  type        = string
+  default     = "zkocean.hpy.dev"
   description = "domain to use for dns"
 }

@@ -1,24 +1,9 @@
-provider "digitalocean" {
-  version = "~> 1.18"
-}
-
-provider "tls" {
-  version = "~> 2.1"
-}
-
-provider "template" {
-  version = "~> 2.1"
-}
-data "template_file" "script" {
-  template = file("cloudinit.sh")
-}
-
 resource "digitalocean_project" "default" {
   name        = "Zookeeper Playground"
   description = "A project for playing with Zookeeper."
   purpose     = "Class project / Educational purposes"
   environment = "development"
-  resources   = flatten([digitalocean_droplet.default.*.urn])
+  resources   = flatten([digitalocean_droplet.default.*.urn, digitalocean_domain.default.urn])
 }
 
 resource "digitalocean_vpc" "default" {
@@ -40,7 +25,7 @@ resource "digitalocean_ssh_key" "default" {
 
 resource "digitalocean_droplet" "default" {
   count      = var.instance_count
-  name       = "zk-${count.index}"
+  name       = "zk-${count.index + 1}.${var.domain}"
   size       = "s-1vcpu-1gb"
   image      = "ubuntu-20-04-x64"
   region     = var.region
