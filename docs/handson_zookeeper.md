@@ -1,7 +1,7 @@
 ---
 id: handson_zookeeper
-title: Let's Play With Zookeeper on Digital Ocean
-sidebar_label: Zookeeper on Digital Ocean
+title: Let's Play With Zookeeper on DigitalOcean
+sidebar_label: Zookeeper on DigitalOcean
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -17,7 +17,7 @@ We're going to use the `tar.gz` from the Releases Page, and we're using version 
 
 Also, here's a [semi-official guide](https://cwiki.apache.org/confluence/display/ZOOKEEPER/ZooKeeper+SSL+User+Guide).
 
-## Run Zookeeper on Digital Ocean
+## Run Zookeeper on DigitalOcean
 
 In the [examples/zookeeper-digitalocean](https://github.com/flyinprogrammer/learn-mtls-the-hard-way/tree/master/examples/zookeeper-digitalocean)
 directory we have some Terraform scripts you can use to spin up 3 nodes, and a [cloud-init](https://cloudinit.readthedocs.io/en/latest/)
@@ -32,15 +32,15 @@ The nodes will only be accessible over the Private IP addresses because of how w
 
 ## Create the ZK Nodes
 
-You'll need to use [doctl](https://github.com/digitalocean/doctl#installing-doctl) to set up a Digital Ocean credential file.
-Then you'll need to create a Digital Ocean [Personal Access Token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).
+You'll need to use [doctl](https://github.com/digitalocean/doctl#installing-doctl) to set up a DigitalOcean credential file.
+Then you'll need to create a DigitalOcean [Personal Access Token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/).
 And finally you'll need valid, public addressable DNS Domain. For this tutorial we're using `zkocean.hpy.dev` but you'll
 need to supply your own, or create your own solution for dns.
 
 You can edit the `variable.tf` to satisfy any of the requirements you might have.
 
 Depending on whether or not you're on macOS, linux, or windows, you'll probably need to adjust the source of your `doctl`
-config file inside of `data.tf` or you'll need to adjust the Digital Ocean provider in `providers.tf`
+config file inside of `data.tf` or you'll need to adjust the DigitalOcean provider in `providers.tf`
 
 Once that's ready, run the following Terraform commands:
 
