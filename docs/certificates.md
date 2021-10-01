@@ -195,8 +195,8 @@ It's simply an entity that issues digital certificates.
 
 ## What is an Intermediate CA?
 
-It's child certificate of the root certificate, which can be used to issue additional Intermediate CA certificates or
-End-entity certificates.
+It's a child certificate of the root certificate, which can be used to issue additional Intermediate CA certificates
+or End-entity certificates.
 
 ## What is an End-entity certificate?
 

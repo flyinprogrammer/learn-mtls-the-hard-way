@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 ## Installation
 
-You should probably use the official, and up-to-date [installtion guide](https://github.com/FiloSottile/mkcert#installation),
+You should probably use the official, and up-to-date [installation guide](https://github.com/FiloSottile/mkcert#installation),
 but at one point in time these commands worked for installing the CLI tool.
 
 <Tabs defaultValue="macos" values={[{ label: 'macOS', value: 'macos', },{ label: 'Linux', value: 'linux', }]}>
