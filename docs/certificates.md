@@ -44,9 +44,9 @@ use serialNumber values longer than 20 octets.
 
 The `signatureAlgorithm` field contains the identifier for the
 cryptographic algorithm used by the CA to sign this certificate.
-[RFC3279](https://tools.ietf.org/html/rfc3279),
-[RFC4055](https://tools.ietf.org/html/rfc4055), and
-[RFC4491](https://tools.ietf.org/html/rfc4491) list supported signature
+[RFC 3279](https://tools.ietf.org/html/rfc3279),
+[RFC 4055](https://tools.ietf.org/html/rfc4055), and
+[RFC 4491](https://tools.ietf.org/html/rfc4491) list supported signature
 algorithms, but other signature algorithms MAY also be supported.
 
 ### [Issuer](https://tools.ietf.org/html/rfc5280#section-4.1.2.4)
@@ -169,8 +169,8 @@ with which the key is used (e.g., RSA, DSA, or Diffie-Hellman).  The
 algorithm is identified using the AlgorithmIdentifier structure
 specified in [Section 4.1.1.2](https://tools.ietf.org/html/rfc5280#section-4.1.1.2).  The object identifiers for the
 supported algorithms and the methods for encoding the public key
-materials (public key and parameters) are specified in [RFC3279](https://tools.ietf.org/html/rfc3279),
-[RFC4055](https://tools.ietf.org/html/rfc4055), and [RFC4491](https://tools.ietf.org/html/rfc4491).
+materials (public key and parameters) are specified in [RFC 3279](https://tools.ietf.org/html/rfc3279),
+[RFC 4055](https://tools.ietf.org/html/rfc4055), and [RFC 4491](https://tools.ietf.org/html/rfc4491).
 
 ### [Extensions](https://tools.ietf.org/html/rfc5280#section-4.1.2.9)
 
@@ -195,8 +195,8 @@ It's simply an entity that issues digital certificates.
 
 ## What is an Intermediate CA?
 
-It's child certificate of the root certificate, which can be used to issue additional Intermediate CA certificates or
-End-entity certificates.
+It's a child certificate of the root certificate, which can be used to issue additional Intermediate CA certificates
+or End-entity certificates.
 
 ## What is an End-entity certificate?
 
